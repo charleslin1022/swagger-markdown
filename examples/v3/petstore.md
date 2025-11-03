@@ -65,9 +65,11 @@ Update an existing pet by Id
 
 #### Request Body
 
+Update an existent pet in the store
+
 | Required | Schema |
 | -------- | ------ |
-|  Yes | **application/json**: [Pet](#pet)<br>**application/xml**: [Pet](#pet)<br>**application/x-www-form-urlencoded**: [Pet](#pet)<br> | **application/json**: [Pet](#pet)<br>**application/xml**: [Pet](#pet)<br>**application/x-www-form-urlencoded**: [Pet](#pet)<br> | **application/json**: [Pet](#pet)<br>**application/xml**: [Pet](#pet)<br>**application/x-www-form-urlencoded**: [Pet](#pet)<br> |
+| Yes | **application/json**: [Pet](#pet)<br>**application/xml**: [Pet](#pet)<br>**application/x-www-form-urlencoded**: [Pet](#pet) |
 
 #### Responses
 
@@ -89,9 +91,11 @@ Update an existing pet by Id
 
 #### Request Body
 
+Create a new pet in the store
+
 | Required | Schema |
 | -------- | ------ |
-|  Yes | **application/json**: [Pet](#pet)<br>**application/xml**: [Pet](#pet)<br>**application/x-www-form-urlencoded**: [Pet](#pet)<br> | **application/json**: [Pet](#pet)<br>**application/xml**: [Pet](#pet)<br>**application/x-www-form-urlencoded**: [Pet](#pet)<br> | **application/json**: [Pet](#pet)<br>**application/xml**: [Pet](#pet)<br>**application/x-www-form-urlencoded**: [Pet](#pet)<br> |
+| Yes | **application/json**: [Pet](#pet)<br>**application/xml**: [Pet](#pet)<br>**application/x-www-form-urlencoded**: [Pet](#pet) |
 
 #### Responses
 
@@ -241,7 +245,7 @@ delete a pet
 
 | Required | Schema |
 | -------- | ------ |
-|  No | **application/octet-stream**: binary<br> |
+| No | **application/octet-stream**: binary |
 
 #### Responses
 
@@ -286,7 +290,7 @@ Place a new order in the store
 
 | Required | Schema |
 | -------- | ------ |
-|  No | **application/json**: [Order](#order)<br>**application/xml**: [Order](#order)<br>**application/x-www-form-urlencoded**: [Order](#order)<br> | **application/json**: [Order](#order)<br>**application/xml**: [Order](#order)<br>**application/x-www-form-urlencoded**: [Order](#order)<br> | **application/json**: [Order](#order)<br>**application/xml**: [Order](#order)<br>**application/x-www-form-urlencoded**: [Order](#order)<br> |
+| No | **application/json**: [Order](#order)<br>**application/xml**: [Order](#order)<br>**application/x-www-form-urlencoded**: [Order](#order) |
 
 #### Responses
 
@@ -343,9 +347,11 @@ This can only be done by the logged in user.
 
 #### Request Body
 
+Created user object
+
 | Required | Schema |
 | -------- | ------ |
-|  No | **application/json**: [User](#user)<br>**application/xml**: [User](#user)<br>**application/x-www-form-urlencoded**: [User](#user)<br> | **application/json**: [User](#user)<br>**application/xml**: [User](#user)<br>**application/x-www-form-urlencoded**: [User](#user)<br> | **application/json**: [User](#user)<br>**application/xml**: [User](#user)<br>**application/x-www-form-urlencoded**: [User](#user)<br> |
+| No | **application/json**: [User](#user)<br>**application/xml**: [User](#user)<br>**application/x-www-form-urlencoded**: [User](#user) |
 
 #### Responses
 
@@ -360,7 +366,7 @@ This can only be done by the logged in user.
 
 | Required | Schema |
 | -------- | ------ |
-|  No | **application/json**: [ [User](#user) ]<br> |
+| No | **application/json**: [ [User](#user) ] |
 
 #### Responses
 
@@ -425,9 +431,11 @@ This can only be done by the logged in user.
 
 #### Request Body
 
+Update an existent user in the store
+
 | Required | Schema |
 | -------- | ------ |
-|  No | **application/json**: [User](#user)<br>**application/xml**: [User](#user)<br>**application/x-www-form-urlencoded**: [User](#user)<br> | **application/json**: [User](#user)<br>**application/xml**: [User](#user)<br>**application/x-www-form-urlencoded**: [User](#user)<br> | **application/json**: [User](#user)<br>**application/xml**: [User](#user)<br>**application/x-www-form-urlencoded**: [User](#user)<br> |
+| No | **application/json**: [User](#user)<br>**application/xml**: [User](#user)<br>**application/x-www-form-urlencoded**: [User](#user) |
 
 #### Responses
 

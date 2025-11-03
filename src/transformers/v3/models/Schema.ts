@@ -6,6 +6,9 @@ export interface SchemaInterface {
   format?: string;
   ref?: string;
   allOf?: SchemaInterface[];
+  oneOf?: SchemaInterface[];
+  anyOf?: SchemaInterface[];
+  not?: SchemaInterface;
   items?: SchemaInterface;
   properties?: { [name: string]: SchemaInterface };
   getType?(): string | undefined;
@@ -13,6 +16,9 @@ export interface SchemaInterface {
   getItems?(): SchemaInterface;
   getReference(): string | undefined;
   getAllOf?(): SchemaInterface[];
+  getOneOf?(): SchemaInterface[];
+  getAnyOf?(): SchemaInterface[];
+  getNot?(): SchemaInterface;
   getDefault?(): unknown;
   getEnum?(): unknown[];
 }
@@ -25,6 +31,12 @@ export class Schema implements SchemaInterface {
   public ref?: string;
 
   public allOf?: SchemaInterface[];
+
+  public oneOf?: SchemaInterface[];
+
+  public anyOf?: SchemaInterface[];
+
+  public not?: SchemaInterface;
 
   public items?: SchemaInterface;
 
@@ -57,6 +69,15 @@ export class Schema implements SchemaInterface {
         }
         if ('allOf' in schema && schema.allOf) {
           this.setAllOf(schema.allOf);
+        }
+        if ('oneOf' in schema && schema.oneOf) {
+          this.setOneOf(schema.oneOf);
+        }
+        if ('anyOf' in schema && schema.anyOf) {
+          this.setAnyOf(schema.anyOf);
+        }
+        if ('not' in schema && schema.not) {
+          this.setNot(schema.not);
         }
         if ('properties' in schema && schema.properties) {
           // At this point the document is dereferenced
@@ -143,6 +164,38 @@ export class Schema implements SchemaInterface {
   }
 
   /**
+   * @param {Array<Object>} oneOf
+   */
+  public setOneOf(oneOf: (OpenAPIV3.SchemaObject | OpenAPIV3.ReferenceObject)[]): Schema {
+    this.oneOf = oneOf.map(
+      (
+        schema: OpenAPIV3.SchemaObject | OpenAPIV3.ReferenceObject,
+      ) => new Schema(schema as Dereferenced<typeof schema>),
+    );
+    return this;
+  }
+
+  /**
+   * @param {Array<Object>} anyOf
+   */
+  public setAnyOf(anyOf: (OpenAPIV3.SchemaObject | OpenAPIV3.ReferenceObject)[]): Schema {
+    this.anyOf = anyOf.map(
+      (
+        schema: OpenAPIV3.SchemaObject | OpenAPIV3.ReferenceObject,
+      ) => new Schema(schema as Dereferenced<typeof schema>),
+    );
+    return this;
+  }
+
+  /**
+   * @param {Object} not
+   */
+  public setNot(not: OpenAPIV3.SchemaObject | OpenAPIV3.ReferenceObject): Schema {
+    this.not = new Schema(not as Dereferenced<typeof not>);
+    return this;
+  }
+
+  /**
    * @param {String} format
    */
   public setFormat(format: string): Schema {
@@ -184,6 +237,27 @@ export class Schema implements SchemaInterface {
    */
   public getAllOf(): SchemaInterface[] {
     return this.allOf;
+  }
+
+  /**
+   * @return {Array<Schema>}
+   */
+  public getOneOf(): SchemaInterface[] {
+    return this.oneOf;
+  }
+
+  /**
+   * @return {Array<Schema>}
+   */
+  public getAnyOf(): SchemaInterface[] {
+    return this.anyOf;
+  }
+
+  /**
+   * @return {Schema}
+   */
+  public getNot(): SchemaInterface {
+    return this.not;
   }
 
   public getProperties() {

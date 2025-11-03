@@ -41,10 +41,29 @@ export const dataTypeResolver = (schema: SchemaInterface): string => {
   const md = Markdown.md();
 
   const all = schema.getAllOf();
-  if (all) {
+  if (all && all.length > 0) {
     return all.map((subSchema: SchemaInterface) => dataTypeResolver(subSchema))
       .filter((type) => type !== '')
       .join(' & ');
+  }
+
+  const one = schema.getOneOf();
+  if (one && one.length > 0) {
+    return one.map((subSchema: SchemaInterface) => dataTypeResolver(subSchema))
+      .filter((type) => type !== '')
+      .join(' | ');
+  }
+
+  const any = schema.getAnyOf();
+  if (any && any.length > 0) {
+    return any.map((subSchema: SchemaInterface) => dataTypeResolver(subSchema))
+      .filter((type) => type !== '')
+      .join(' | ');
+  }
+
+  const not = schema.getNot();
+  if (not) {
+    return `NOT ${dataTypeResolver(not)}`;
   }
 
   const reference = schema.getReference();
