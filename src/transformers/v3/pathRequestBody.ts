@@ -9,7 +9,8 @@ export function transformRequestBody(
 ) {
   const md = Markdown.md();
   md.line(md.string('Request Body').h4()).line();
-  if ('descrtiption' in requestBody && requestBody.description) {
+
+  if ('description' in requestBody && requestBody.description) {
     md.line(md.string(requestBody.description).escape()).line();
   }
 
@@ -18,19 +19,26 @@ export function transformRequestBody(
   const tr = table.tr();
 
   // Required
-  tr.td(requestBody.required ? ' Yes' : ' No');
+  tr.td(requestBody.required ? 'Yes' : 'No');
 
   const { content } = requestBody;
-  const td = md.string();
+  const schemaCellParts: string[] = [];
+
   Object.keys(content).forEach((contentType: string) => {
     const { schema } = content[contentType];
-    if (schema) {
-      const schemaObject = new Schema(schema as Dereferenced<typeof schema>);
-      td.concat(`${md.string(contentType).bold()}: `);
-      td.concat(dataTypeResolver(schemaObject)).br(true);
+    if (!schema) {
+      return;
     }
-    tr.td(td);
+
+    const schemaObject = new Schema(schema as Dereferenced<typeof schema>);
+    const resolvedType = dataTypeResolver(schemaObject);
+    const typeString = md.string(contentType).bold().concat(`: ${resolvedType}`).get();
+    schemaCellParts.push(typeString);
   });
+
+  tr.td(schemaCellParts.join('<br>'));
+
   md.line(table);
+
   return md.export();
 }

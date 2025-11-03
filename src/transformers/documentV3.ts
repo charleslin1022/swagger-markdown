@@ -54,6 +54,7 @@ export function transformSwaggerV3(
 
     Object.keys(tagged).forEach((tagName) => {
       md.line(md.string().horizontalRule());
+      md.line('');
       if (tagsCollection.length) {
         // Display Tag
         const tagObject = tagsCollection.getTag(tagName) || '';
@@ -72,6 +73,7 @@ export function transformSwaggerV3(
   // Models (components)
   if ('components' in inputDoc) {
     md.line(md.string().horizontalRule());
+    md.line('');
     md.line(
       transformComponents(
         inputDoc.components,
